@@ -1,19 +1,15 @@
 import org.junit.jupiter.api.*;
-import org.mockito.Mockito;
-import ru.netology.i18n.LocalizationService;
 import ru.netology.i18n.LocalizationServiceImpl;
 
 import static ru.netology.entity.Country.RUSSIA;
 import static ru.netology.entity.Country.USA;
 
 public class LocalizationServiceImplTest {
-    static LocalizationService localizationService;
+    static LocalizationServiceImpl sut;
 
     @BeforeAll
     public static void startsAll() {
-        localizationService = Mockito.mock(LocalizationServiceImpl.class);
-        Mockito.when(localizationService.locale(RUSSIA)).thenReturn("Добро пожаловать!");
-        Mockito.when(localizationService.locale(USA)).thenReturn("Welcome!");
+        sut = new LocalizationServiceImpl();
         System.out.println("Testing LocalizationServiceImpl starts");
     }
 
@@ -30,7 +26,7 @@ public class LocalizationServiceImplTest {
     @Test
     @DisplayName("Test locale for RUSSIA")
     public void localeRussiaTest(TestInfo localeTestInfo) {
-        Assertions.assertEquals(localizationService.locale(RUSSIA), "Добро пожаловать!",
+        Assertions.assertEquals("Добро пожаловать", sut.locale(RUSSIA),
                 localeTestInfo.getDisplayName() + " not complete");
         System.out.print(localeTestInfo.getDisplayName());
     }
@@ -38,7 +34,7 @@ public class LocalizationServiceImplTest {
     @Test
     @DisplayName("Test locale for USA")
     public void localeUsaTest(TestInfo localeTestInfo) {
-        Assertions.assertEquals(localizationService.locale(USA), "Welcome!",
+        Assertions.assertEquals("Welcome", sut.locale(USA),
                 localeTestInfo.getDisplayName() + " not complete");
         System.out.print(localeTestInfo.getDisplayName());
     }
